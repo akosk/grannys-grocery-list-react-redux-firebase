@@ -4,7 +4,7 @@ import {
   findRenderedDOMComponentWithTag
 } from 'react-addons-test-utils';
 
-import Layout from '../app/components/Layout';
+import Layout from '../app/containers/Layout';
 import {expect} from 'chai';
 
 

@@ -10,7 +10,7 @@ module.exports = {
   devtool: 'source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/dev-server',
+    'webpack/hot/only-dev-server',
     'babel-polyfill',
     './app/index.js'
   ],
@@ -23,6 +23,9 @@ module.exports = {
       {test: /\.js$/, exclude: /node_modules/, loader: "react-hot!babel-loader"},
       {test: /\.css$/, loader: "style-loader!css-loader"}
     ]
+  },
+  devServer: {
+    hot: true
   },
   plugins: [
     HTMLWebpackPluginConfig,
