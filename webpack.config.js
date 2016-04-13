@@ -1,5 +1,6 @@
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   template: __dirname + '/app/index.html',
   filename: 'index.html',
@@ -21,6 +22,7 @@ module.exports = {
   module: {
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loader: "react-hot!babel-loader"},
+      { test: /\.jpg$/, loader: 'url-loader?limit=8192' },
       {test: /\.css$/, loader: "style-loader!css-loader"}
     ]
   },
@@ -29,6 +31,9 @@ module.exports = {
   },
   plugins: [
     HTMLWebpackPluginConfig,
+    new CopyWebpackPlugin([
+      { from: 'app/static' }
+    ]),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ]

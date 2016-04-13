@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {AppBar, IconButton, FlatButton, Avatar} from 'material-ui';
+import {AppBar, IconButton, FlatButton, Avatar, Card} from 'material-ui';
 import _ from 'lodash';
 import ShoppingBasketIcon from '../../node_modules/material-ui/lib/svg-icons/action/shopping-basket';
 
@@ -26,12 +26,14 @@ class LayoutContainer extends Component {
     const logoutButton = <FlatButton label="Kijelentkezés" onClick={this.logout.bind(this)} />;
 
     return (
-      <div>
+      <div style={{maxWidth:700,minHeight:600, margin:'0 auto'}}>
+        <Card style={{ minHeight:600 }}>
         <AppBar
           iconElementLeft={<IconButton><ShoppingBasketIcon/></IconButton>}
           iconElementRight={isLoggedIn ? logoutButton : null}
           title="Nagyi bevásárló listája"/>
         {this.props.children}
+        </Card>
       </div>
     )
   }

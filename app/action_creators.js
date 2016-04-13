@@ -1,4 +1,6 @@
 import { routerMiddleware, push } from 'react-router-redux'
+import axios from 'axios';
+import _ from 'lodash';
 
 export function openLoginPopup() {
   return {
@@ -22,6 +24,8 @@ export function loginSucceed(user) {
 
 export function logout() {
   return (dispatch, getState)=> {
+    const {firebase}=getState();
+    firebase.unauth();
     dispatch({
       type: 'LOGOUT_SUCCEED'
     });
@@ -41,8 +45,18 @@ export function queryAllGroceryItems() {
   return (dispatch, getState)=> {
     const {firebase}=getState();
     const ref = firebase.child('items');
+
+    ref.on("child_removed", ((msg) => {
+      let msgVal = msg.val();
+      msgVal.key = msg.key();
+      dispatch({
+        type: 'GROCERY_ITEM_REMOVED',
+        item: { ...msgVal },
+      });
+    }));
+
+
     ref.on("child_added", function (snap) {
-      console.log("Data received ", snap.val());
       var val = snap.val();
       var id = snap.key();
       dispatch({
@@ -52,6 +66,7 @@ export function queryAllGroceryItems() {
           ...val
         },
       });
+
     });
 
   }
@@ -61,7 +76,24 @@ export function addGroceryItem(item) {
   return (dispatch, getState)=> {
     const {firebase}=getState();
     const ref = firebase.child('items');
-    let newItemRef = ref.push(item);
+
+    axios.get('https://www.googleapis.com/customsearch/v1', {
+           params: {
+             key: 'AIzaSyB4cC2F-GAMBfZbFIDQu4D0VcarL7SYAro',
+             cx: '014145426969181454447:3iund3-mwui',
+             searchType: 'image',
+             q: item.name,
+           }
+         })
+         .then(function (response) {
+           item.imageUrl = _.get(response.data, 'items[0].image.thumbnailLink');
+           let newItemRef = ref.push(item);
+         })
+         .catch(function (response) {
+           let newItemRef = ref.push(item);
+         });
+
+
   }
 }
 
@@ -74,15 +106,13 @@ export function selectGroceryItems(selectedIndexes) {
 
 export function deleteSelectedGroceryItems() {
   return (dispatch, getState)=> {
-    const {firebase}=getState();
-    const ref = firebase.child('items');
-
-    ref.orderByChild("selected").equalTo(true).once("value",
-      (snapshot)=> {
-        snapshot.forEach((item)=> {
-          item.ref().remove();
-        });
-      });
+    const {firebase, grocery}=getState();
+    grocery.items.forEach((item)=> {
+      if (item.selected === true) {
+        let ref = firebase.child('items/' + item.id);
+        ref.remove();
+      }
+    });
   }
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Avatar,FontIcon,Card, CardHeader, CardActions, FlatButton,CardTitle,CardText, TextField} from 'material-ui';
+import {Badge, Avatar,FontIcon,Card, CardHeader, CardActions, FlatButton,CardTitle,CardText, TextField} from 'material-ui';
 import DeleteIcon from '../../node_modules/material-ui/lib/svg-icons/action/delete';
 import AddIcon from '../../node_modules/material-ui/lib/svg-icons/content/add';
 import * as actionCreators from '../action_creators';
@@ -12,6 +12,7 @@ class MainContainer extends Component {
   componentDidMount() {
     const {queryAllGroceryItems}=this.props;
     queryAllGroceryItems();
+
   }
 
   onSubmit(e) {
@@ -33,21 +34,30 @@ class MainContainer extends Component {
   }
 
   onDelete() {
+    console.log('onDelete');
     this.props.deleteSelectedGroceryItems();
   }
 
   render() {
     const {avatarUrl, displayName, items}=this.props;
-
     return (
       <div>
-        <div style={{marginTop:"20",display: "flex",flexDirection:"row",justifyContent:"center"}}>
+        <div style={
+        { marginTop:"20",
+        display: "flex",
+        flexDirection:"row",
+        alignItems: "center",
+        justifyContent:"center"}
+        }>
           <Avatar src={avatarUrl}/>
-          <h3>{displayName}</h3>
+          <h3 style={{marginLeft:10}}>{displayName}</h3>
         </div>
         <form onSubmit={this.onSubmit.bind(this)}>
           <Card>
-            <CardText style={{display: "flex",flexDirection:"row",justifyContent:"space-between"}}>
+            <CardText style={{
+            display: "flex",
+            flexDirection:"row",
+            justifyContent:"space-between"}}>
 
               <TextField
                 name="name"
@@ -65,17 +75,17 @@ class MainContainer extends Component {
 
             </CardText>
             <CardActions >
-              <FlatButton label="Hozzáad" type="submit" icon={<AddIcon/>} onClick={this.onSubmit.bind(this)}/>
+              <FlatButton label="Hozzáad" type="submit" icon={<AddIcon/>}/>
             </CardActions>
           </Card>
         </form>
         <Card style={{marginTop:14}}>
-          <CardTitle title="Bevásárló lista"/>
+          <CardTitle title={<Badge badgeContent={items.length} primary={true}>Bevásárló lista</Badge>}/>
           <CardText>
             <GroceryItems items={items} onItemSelectChanged={this.onItemSelectChanged.bind(this)}/>
           </CardText>
           <CardActions >
-            <FlatButton label="Kijelöltek törlése" icon={<DeleteIcon/>} onDelete={this.onDelete.bind(this)}/>
+            <FlatButton label="Kijelöltek törlése" icon={<DeleteIcon/>} onClick={this.onDelete.bind(this)}/>
           </CardActions>
         </Card>
       </div>

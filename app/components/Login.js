@@ -16,7 +16,7 @@ class Login extends Component {
         <CardText style={{
                 'textAlign': 'center'
               }}>
-          A program használatához jelentkezz be a Facebook fiókoddal.
+          A program használatához tessék bejelentkezni a Facebook fiókkal.
         </CardText>
 
         <RaisedButton style={{

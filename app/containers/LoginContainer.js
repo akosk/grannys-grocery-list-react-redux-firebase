@@ -34,7 +34,18 @@ class LoginContainer extends Component {
 
   render() {
     return (
-      <Login loginButtonClickHandler={this.login.bind(this)}/>
+      <div>
+        <Login loginButtonClickHandler={this.login.bind(this)}/>
+        <div style={{
+        marginTop:40,
+        display:'flex',
+        flexDirection:"row",
+        alignItems: "center",
+        justifyContent:"center"}
+        }>
+          <img style={{maxHeight:'300px'}} src="/images/bag1.jpg"/>
+        </div>
+      </div>
     );
   }
 }
