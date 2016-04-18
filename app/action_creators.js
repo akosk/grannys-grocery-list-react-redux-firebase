@@ -41,6 +41,21 @@ export function redirectToLogin(router) {
   }
 }
 
+export function editGroceryItem(item) {
+  return {
+    type: 'EDIT_GROCERY_ITEM',
+    item
+  };
+}
+
+export function cancelEditGroceryItem(item) {
+  return {
+    type: 'CANCEL_EDIT_GROCERY_ITEM',
+    item
+  };
+}
+
+
 export function queryAllGroceryItems() {
   return (dispatch, getState)=> {
     const {firebase}=getState();
@@ -66,8 +81,20 @@ export function queryAllGroceryItems() {
           ...val
         },
       });
-
     });
+
+    ref.on("child_changed", ((msg) => {
+      let val = msg.val();
+      let id = msg.key();
+      dispatch({
+        type: 'GROCERY_ITEM_CHANGED',
+        item: {
+          id,
+          ...val
+        }
+      });
+    }));
+
 
   }
 }
@@ -92,10 +119,44 @@ export function addGroceryItem(item) {
          .catch(function (response) {
            let newItemRef = ref.push(item);
          });
+  }
+}
+
+export function doneEditGroceryItem(item) {
+  return (dispatch, getState)=> {
+    const {firebase}=getState();
+    const ref = firebase.child(`items/${item.id}`);
+
+    axios.get('https://www.googleapis.com/customsearch/v1', {
+           params: {
+             key: 'AIzaSyB4cC2F-GAMBfZbFIDQu4D0VcarL7SYAro',
+             cx: '014145426969181454447:3iund3-mwui',
+             searchType: 'image',
+             q: item.name,
+           }
+         })
+         .then(function (response) {
+           item.imageUrl = _.get(response.data, 'items[0].image.thumbnailLink');
+           let newItemRef = ref.update({
+             imageUrl: item.imageUrl,
+             name: item.name,
+             quantity: item.quantity,
+             shop: item.shop,
+             maxprice: item.maxprice
+           });
+           dispatch({
+             type: 'CANCEL_EDIT_GROCERY_ITEM',
+             item
+           });
+         })
+         .catch(function (response) {
+           console.log('Hiba történt a képlekérdezésénél.');
+         });
 
 
   }
 }
+
 
 export function selectGroceryItems(selectedIndexes) {
   return {

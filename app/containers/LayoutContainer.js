@@ -26,7 +26,7 @@ class LayoutContainer extends Component {
     const logoutButton = <FlatButton label="Kijelentkezés" onClick={this.logout.bind(this)} />;
 
     return (
-      <div style={{maxWidth:700,minHeight:600, margin:'0 auto'}}>
+      <div style={{maxWidth:850,minHeight:600, margin:'0 auto'}}>
         <Card style={{ minHeight:600 }}>
         <AppBar
           iconElementLeft={<IconButton><ShoppingBasketIcon/></IconButton>}

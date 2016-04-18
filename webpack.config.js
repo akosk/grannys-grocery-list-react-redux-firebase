@@ -1,5 +1,4 @@
 var webpack = require('webpack');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   template: __dirname + '/app/index.html',
@@ -17,23 +16,21 @@ module.exports = {
   ],
   output: {
     path: __dirname + '/dist',
-    filename: "index_bundle.js"
+    filename: "index_bundle.js",
+    publicPath: "/",
   },
   module: {
     loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loader: "react-hot!babel-loader"},
-      { test: /\.jpg$/, loader: 'url-loader?limit=8192' },
-      {test: /\.css$/, loader: "style-loader!css-loader"}
+      { test: /\.js$/, exclude: /node_modules/, loader: "react-hot!babel-loader" },
+      { test: /\.css$/, loader: "style-loader!css-loader" }
     ]
   },
   devServer: {
-    hot: true
+    hot: true,
+    contentBase: __dirname+"/dist"
   },
   plugins: [
     HTMLWebpackPluginConfig,
-    new CopyWebpackPlugin([
-      { from: 'app/static' }
-    ]),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ]
