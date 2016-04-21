@@ -1,76 +1,75 @@
 export const initialState = {
-  items: []
+  items: [],
 };
 
 export default function grocery(state = initialState, action) {
   switch (action.type) {
-    case "GROCERY_ITEM_RECEIVED":
+    case 'GROCERY_ITEM_RECEIVED':
       return {
         ...state,
         items: [
           action.item,
-          ...state.items ]
+          ...state.items,
+        ],
       };
 
-    case "EDIT_GROCERY_ITEM":
+    case 'EDIT_GROCERY_ITEM':
       return {
         ...state,
-        items: state.items.map((item, index)=> {
+        items: state.items.map((item, index) => {
           return {
             ...item,
-            edit: action.item.id === item.id ? true: item.edit
-          }
-        })
+            edit: action.item.id === item.id ? true : item.edit,
+          };
+        }),
       };
 
-    case "CANCEL_EDIT_GROCERY_ITEM":
+    case 'CANCEL_EDIT_GROCERY_ITEM':
       return {
         ...state,
-        items: state.items.map((item, index)=> {
+        items: state.items.map((item, index) => {
           return {
             ...item,
-            edit: action.item.id === item.id ? false : item.edit
-          }
-        })
+            edit: action.item.id === item.id ? false : item.edit,
+          };
+        }),
       };
 
-    case "SELECT_GROCERY_ITEMS":
+    case 'SELECT_GROCERY_ITEMS':
       return {
         ...state,
-        items: state.items.map((item, index)=> {
+        items: state.items.map((item, index) => {
           return {
             ...item,
-            selected: action.selectedIndexes === 'all' || action.selectedIndexes.includes(index)
-          }
-        })
+            selected: action.selectedIndexes === 'all' || action.selectedIndexes.includes(index),
+          };
+        }),
       };
 
-    case "GROCERY_ITEM_REMOVED":
+    case 'GROCERY_ITEM_REMOVED':
       return {
         ...state,
-        items: state.items.filter((item)=> {
+        items: state.items.filter((item) => {
           return item.id !== action.item.key;
-        })
+        }),
       };
 
-    case "GROCERY_ITEM_CHANGED":
-      console.log(action.item);
+    case 'GROCERY_ITEM_CHANGED':
       return {
         ...state,
-        items: state.items.map((item, index)=> {
-          if (item.id!=action.item.id) return item;
-          let newItem=action.item;
-          return {...newItem};
+        items: state.items.map((item, index) => {
+            if (item.id !== action.item.id) return item;
+            return { ...action.item };
           }
-        )
+        ),
       };
 
-    case "LOGOUT_SUCCEED":
+    case 'LOGOUT_SUCCEED':
       return {
-        items: []
+        items: [],
       };
 
     default:
-      return state
+      return state;
   }
 }

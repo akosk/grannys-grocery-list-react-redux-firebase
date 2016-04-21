@@ -1,20 +1,17 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {AppBar, IconButton, FlatButton, Avatar, Card} from 'material-ui';
+import { AppBar, IconButton, FlatButton, Avatar, Card } from 'material-ui';
 import _ from 'lodash';
-import ShoppingBasketIcon from '../../node_modules/material-ui/lib/svg-icons/action/shopping-basket';
+import ShoppingBasketIcon from
+  '../../node_modules/material-ui/lib/svg-icons/action/shopping-basket';
 
 import * as actionCreators from '../action_creators';
 
 class LayoutContainer extends Component {
 
   static contextTypes = {
-    router: React.PropTypes.object
+    router: React.PropTypes.object,
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   logout() {
       this.props.logout();
@@ -22,12 +19,12 @@ class LayoutContainer extends Component {
   }
 
   render() {
-    const { isLoggedIn, avatarUrl, displayName }=this.props;
+    const { isLoggedIn, avatarUrl, displayName } = this.props;
     const logoutButton = <FlatButton label="Kijelentkezés" onClick={this.logout.bind(this)} />;
 
     return (
-      <div style={{maxWidth:850,minHeight:600, margin:'0 auto'}}>
-        <Card style={{ minHeight:600 }}>
+      <div style={{ maxWidth: 900, minHeight: 600, margin: '0 auto' }}>
+        <Card style={{ minHeight: 600 }}>
         <AppBar
           iconElementLeft={<IconButton><ShoppingBasketIcon/></IconButton>}
           iconElementRight={isLoggedIn ? logoutButton : null}
@@ -35,15 +32,15 @@ class LayoutContainer extends Component {
         {this.props.children}
         </Card>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state)=> {
-  let defaultAvatarUrl = 'https://fbcdn-profile-a.akamaihd.net/static-ak/rsrc.php/v2/yL/r/HsTZSDw4avx.gif';
+const mapStateToProps = (state) => {
+  const defaultAvatarUrl = 'https://fbcdn-profile-a.akamaihd.net/static-ak/rsrc.php/v2/yL/r/HsTZSDw4avx.gif';
   return {
     isLoggedIn: _.has(state, 'auth.user.uid'),
-  }
+  };
 };
 
 export default connect(mapStateToProps, actionCreators)(LayoutContainer);

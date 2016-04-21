@@ -1,38 +1,36 @@
 export const initialState = {
-  popupOpened: false
+  popupOpened: false,
 };
 
 export default function auth(state = initialState, action) {
   switch (action.type) {
 
-    case "OPEN_LOGIN_POPUP":
+    case 'OPEN_LOGIN_POPUP':
       return {
         ...state,
-        popupOpened: true
+        popupOpened: true,
       };
 
-    case "LOGIN_ERROR":
-      const error=action.error;
+    case 'LOGIN_ERROR':
       return {
         ...state,
         popupOpened: false,
-        error
+        error: action.error,
       };
 
-    case "LOGIN_SUCCEED":
-      const user=action.user;
+    case 'LOGIN_SUCCEED':
       return {
         ...state,
-        user,
+        user: action.user,
         popupOpened: false,
       };
 
-    case "LOGOUT_SUCCEED":
+    case 'LOGOUT_SUCCEED':
       return {
-        ...initialState
+        ...initialState,
       };
 
     default:
-      return state
+      return state;
   }
 }

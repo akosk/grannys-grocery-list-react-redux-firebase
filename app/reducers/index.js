@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux'
+import { routerReducer } from 'react-router-redux';
 
 import firebase from './firebaseReducer';
 import grocery from './groceryReducer';
@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   firebase,
   grocery,
   auth,
-  routing: routerReducer
-})
+  routing: routerReducer,
+});
 
 export default rootReducer;

@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import deepFreeze  from 'deep-freeze';
-import * as actionCreators from '../app/action_creators';
+import * as actionCreators from '../app/actions/action_creators';
 import reducers from '../app/reducers';
 
 describe('Auth reducer', ()=> {

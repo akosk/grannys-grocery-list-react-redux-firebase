@@ -2,20 +2,18 @@ import React, { Component } from 'react';
 import mui, {
   Card,
   CardText,
-  RaisedButton
+  RaisedButton,
 } from 'material-ui';
 
 class Login extends Component {
 
 
   render() {
-    const {loginButtonClickHandler} = this.props;
+    const { loginButtonClickHandler } = this.props;
 
     return (
-      <Card style={{maxWidth:500, 'margin':'30px auto'}}>
-        <CardText style={{
-                'textAlign': 'center'
-              }}>
+      <Card style={{ maxWidth: 500, margin: '30px auto' }}>
+        <CardText style={{ textAlign: 'center' }}>
           A program használatához tessék bejelentkezni a Facebook fiókkal.
         </CardText>
 

@@ -1,3 +1,3 @@
-export default function firebase(state={}, action) {
+export default function firebase(state = {}, action) {
   return state;
 }

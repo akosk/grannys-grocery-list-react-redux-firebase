@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import {Badge, Avatar,FontIcon,Card, CardHeader, CardActions, FlatButton,CardTitle,CardText, TextField} from 'material-ui';
+import { Badge, Avatar, FontIcon, Card, CardHeader, CardActions,
+  FlatButton, CardTitle, CardText, TextField } from 'material-ui';
 import AddIcon from '../../node_modules/material-ui/lib/svg-icons/content/add';
 
 const initialState = {
@@ -8,8 +9,8 @@ const initialState = {
     name: '',
     quantity: '',
     shop: '',
-    maxprice: ''
-  }
+    maxprice: '',
+  },
 };
 
 class GroceryItemForm extends Component {
@@ -17,7 +18,7 @@ class GroceryItemForm extends Component {
   static propTypes = {
     onSubmitCallback: PropTypes.func.isRequired,
     submitButtonText: PropTypes.string,
-    submitButtonIcon: PropTypes.object
+    submitButtonIcon: PropTypes.object,
   };
 
   static defaultProps = {
@@ -28,14 +29,13 @@ class GroceryItemForm extends Component {
   state = initialState;
 
   onChange(event) {
-    let form = this.state.form;
-    console.log(form.name.length);
-    form[ event.target.name ] = event.target.value;
+    const form = this.state.form;
+    form[event.target.name] = event.target.value;
     this.setState({
-      submitButtonDisabled: form.name.length == 0,
+      submitButtonDisabled: form.name.length === 0,
       form: {
-        ...form
-      }
+        ...form,
+      },
     });
   }
 
@@ -46,37 +46,40 @@ class GroceryItemForm extends Component {
 
   render() {
     return (
-      <form onSubmit={(e)=>this.onSubmit(e)}>
+      <form onSubmit={(e) => this.onSubmit(e)}>
         <Card>
-          <CardText style={{
-            display: "flex",
-            flexDirection:"row",
-            justifyContent:"space-between"}}>
+          <CardText style={
+            {
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }
+          }>
 
             <TextField
               name="name"
               floatingLabelText="Termék neve"
               autoFocus="true"
               value={this.state.form.name}
-              onChange={(e)=>this.onChange(e)}
+              onChange={(e) => this.onChange(e)}
             />
             <TextField
               name="quantity"
               floatingLabelText="Mennyiség"
               value={this.state.form.quantity}
-              onChange={(e)=>this.onChange(e)}
+              onChange={(e) => this.onChange(e)}
             />
             <TextField
               name="shop"
               floatingLabelText="Üzlet(ek)"
               value={this.state.form.shop}
-              onChange={(e)=>this.onChange(e)}
+              onChange={(e) => this.onChange(e)}
             />
             <TextField
               name="maxprice"
               floatingLabelText="Max. ár"
               value={this.state.form.maxprice}
-              onChange={(e)=>this.onChange(e)}
+              onChange={(e) => this.onChange(e)}
             />
 
           </CardText>

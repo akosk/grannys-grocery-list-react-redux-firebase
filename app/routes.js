@@ -1,27 +1,24 @@
-import 'babel-polyfill'
+import 'babel-polyfill';
 import React from 'react';
-import {browserHistory , Router, Route, IndexRoute} from 'react-router';
+import { browserHistory, Router, Route, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-
-
-
 import { Provider } from 'react-redux';
 
 import store from './store';
 
-//Components
+// Components
 import LayoutContainer from './containers/LayoutContainer';
 import LoginContainer from './containers/LoginContainer';
 import MainContainer from './containers/MainContainer';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
-let routes = (
+const routes = (
   <Provider store={store}>
       <Router history={history}>
-        <Route path='/' component={LayoutContainer}>
+        <Route path="/" component={LayoutContainer}>
           <IndexRoute component={LoginContainer}/>
-          <Route path='/main' component={MainContainer}/>
+          <Route path="/main" component={MainContainer}/>
         </Route>
       </Router>
   </Provider>

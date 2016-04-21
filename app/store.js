@@ -9,6 +9,11 @@ import initialState from './initialState';
 const logger = createLogger();
 const enhancer = compose(applyMiddleware(thunk, logger));
 
+
+//const createStoreWrapper = window.devToolsExtension ?
+//  window.devToolsExtension()(createStore)
+//  : createStore;
+
 const store = createStore(reducers, initialState, enhancer);
 
 if (module.hot) {
@@ -17,5 +22,6 @@ if (module.hot) {
     store.replaceReducer(require('./reducers').default);
   });
 }
+
 
 export default store;
