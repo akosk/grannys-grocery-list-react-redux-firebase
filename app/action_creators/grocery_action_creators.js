@@ -102,6 +102,7 @@ export function doneEditGroceryItem(item) {
            const imageUrl = _.get(response.data, 'items[0].image.thumbnailLink');
            const newItemRef = ref.update({
              ...item,
+             imageUrl
            });
            dispatch({
              type: 'CANCEL_EDIT_GROCERY_ITEM',
