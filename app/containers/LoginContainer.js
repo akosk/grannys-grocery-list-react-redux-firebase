@@ -1,10 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Login from '../components/Login';
-
-import Firebase from 'firebase';
 import * as actionCreators from '../action_creators';
-
 
 class LoginContainer extends Component {
 
@@ -13,7 +10,10 @@ class LoginContainer extends Component {
   };
 
   static propTypes = {
-    firebase: PropTypes.object.isRequired,
+    firebase: PropTypes.func.isRequired,
+    loginError: PropTypes.func.isRequired,
+    loginSucceed: PropTypes.func.isRequired,
+    openLoginPopup: PropTypes.func.isRequired,
   };
 
   login() {
@@ -31,28 +31,32 @@ class LoginContainer extends Component {
     });
   }
 
-
   render() {
     return (
       <div>
-        <Login loginButtonClickHandler={this.login.bind(this)}/>
-        <div style={{
-        marginTop: 40,
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center' }
-        }>
-          <img style={ { maxHeight: '300px' } } src="/images/bag1.jpg"/>
+        <Login loginButtonClickHandler={() => this.login()}/>
+        <div
+            style={{
+              marginTop: 40,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+        >
+          <img src='/images/bag1.jpg'
+              style={{ maxHeight: '300px' }}
+          />
         </div>
+
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return { firebase: state.firebase };
-};
+const mapStateToProps = (state) => ({
+  firebase: state.firebase,
+});
 
 
 export default connect(mapStateToProps, actionCreators)(LoginContainer);

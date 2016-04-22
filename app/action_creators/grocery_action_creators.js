@@ -65,23 +65,23 @@ export function addGroceryItem(item) {
     const ref = firebase.child('items');
 
     axios.get('https://www.googleapis.com/customsearch/v1', {
-           params: {
-             key: 'AIzaSyB4cC2F-GAMBfZbFIDQu4D0VcarL7SYAro',
-             cx: '014145426969181454447:3iund3-mwui',
-             searchType: 'image',
-             q: item.name,
-           },
-         })
-         .then((response) => {
-           const imageUrl = _.get(response.data, 'items[0].image.thumbnailLink');
-           const newItemRef = ref.push({
-             ...item,
-             imageUrl,
-           });
-         })
-         .catch((response) => {
-           const newItemRef = ref.push(item);
-         });
+      params: {
+        key: 'AIzaSyB4cC2F-GAMBfZbFIDQu4D0VcarL7SYAro',
+        cx: '014145426969181454447:3iund3-mwui',
+        searchType: 'image',
+        q: item.name,
+      },
+    })
+    .then((response) => {
+      const imageUrl = _.get(response.data, 'items[0].image.thumbnailLink');
+      ref.push({
+        ...item,
+        imageUrl,
+      });
+    })
+    .catch((response) => {
+      ref.push(item);
+    });
   };
 }
 
@@ -91,18 +91,18 @@ export function doneEditGroceryItem(item) {
     const ref = firebase.child(`items/${item.id}`);
 
     axios.get('https://www.googleapis.com/customsearch/v1', {
-           params: {
-             key: 'AIzaSyB4cC2F-GAMBfZbFIDQu4D0VcarL7SYAro',
-             cx: '014145426969181454447:3iund3-mwui',
-             searchType: 'image',
-             q: item.name,
-           },
-         })
+      params: {
+        key: 'AIzaSyB4cC2F-GAMBfZbFIDQu4D0VcarL7SYAro',
+        cx: '014145426969181454447:3iund3-mwui',
+        searchType: 'image',
+        q: item.name,
+      },
+    })
          .then((response) => {
            const imageUrl = _.get(response.data, 'items[0].image.thumbnailLink');
-           const newItemRef = ref.update({
+           ref.update({
              ...item,
-             imageUrl
+             imageUrl,
            });
            dispatch({
              type: 'CANCEL_EDIT_GROCERY_ITEM',
@@ -133,4 +133,3 @@ export function deleteSelectedGroceryItems() {
     });
   };
 }
-

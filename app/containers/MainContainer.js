@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { Badge, Avatar, FontIcon, Card,
-  CardHeader, CardActions, FlatButton, CardTitle, CardText, TextField } from 'material-ui';
+import { Badge, Avatar, Card,
+  CardActions, FlatButton, CardTitle, CardText } from 'material-ui';
 import DeleteIcon from '../../node_modules/material-ui/lib/svg-icons/action/delete';
 
 import * as actionCreators from '../action_creators';
@@ -11,6 +11,25 @@ import GroceryItems from '../components/GroceryItems';
 import GroceryItemForm from '../components/GroceryItemForm';
 
 class MainContainer extends Component {
+
+  static propTypes = {
+    addGroceryItem: PropTypes.func.isRequired,
+    avatarUrl: PropTypes.string.isRequired,
+    cancelEditGroceryItem: PropTypes.func.isRequired,
+    deleteSelectedGroceryItems: PropTypes.func.isRequired,
+    displayName: PropTypes.string.isRequired,
+    doneEditGroceryItem: PropTypes.func.isRequired,
+    editGroceryItem: PropTypes.func.isRequired,
+    items: PropTypes.shape({
+      name: PropTypes.string,
+      quantity: PropTypes.string,
+      shop: PropTypes.string,
+      maxprice: PropTypes.string,
+      imageUrl: PropTypes.string,
+    }).isRequired,
+    queryAllGroceryItems: PropTypes.func.isRequired,
+    selectGroceryItems: PropTypes.func.isRequired,
+  }
 
   componentDidMount() {
     const { queryAllGroceryItems } = this.props;
@@ -68,26 +87,35 @@ class MainContainer extends Component {
       <div>
         <div style={divStyle}>
           <Avatar src={avatarUrl}/>
-          <h3 style={ { marginLeft: 10 } }>{displayName}</h3>
+          <h3 style={{ marginLeft: 10 }}>{displayName}</h3>
         </div>
         <GroceryItemForm onSubmitCallback={this.onSubmit.bind(this)}/>
-        <Card style={ { marginTop: 14 } }>
-          <CardTitle title={<Badge badgeContent={items.length}
-          primary={true}>Bevásárló lista</Badge>}/>
+        <Card style={{ marginTop: 14 }}>
+          <CardTitle
+              title={
+                <Badge
+                    badgeContent={items.length}
+                    primary={true}
+                >
+                  Bevásárló lista
+                </Badge>
+              }
+          />
           <CardText>
             <GroceryItems
-              items={items}
-              onItemSelectChanged={this.onItemSelectChanged.bind(this)}
-              onEditItem={this.onEditItem.bind(this)}
-              onDoneEditItem={this.onDoneEditItem.bind(this)}
-              onCancelEditItem={this.onCancelEditItem.bind(this)}
+                items={items}
+                onCancelEditItem={() => this.onCancelEditItem()}
+                onDoneEditItem={() => this.onDoneEditItem()}
+                onEditItem={() => this.onEditItem()}
+                onItemSelectChanged={() => this.onItemSelectChanged()}
             />
           </CardText>
           <CardActions >
             <FlatButton
-              label="Kijelöltek törlése"
-              icon={ <DeleteIcon/> }
-              onClick={this.onDelete.bind(this)}/>
+                icon={<DeleteIcon/>}
+                label='Kijelöltek törlése'
+                onClick={() => this.onDelete()}
+            />
           </CardActions>
         </Card>
       </div>

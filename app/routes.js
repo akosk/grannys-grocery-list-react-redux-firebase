@@ -15,12 +15,16 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 const routes = (
   <Provider store={store}>
-      <Router history={history}>
-        <Route path="/" component={LayoutContainer}>
-          <IndexRoute component={LoginContainer}/>
-          <Route path="/main" component={MainContainer}/>
-        </Route>
-      </Router>
+    <Router history={history}>
+      <Route component={LayoutContainer}
+          path='/'
+      >
+        <IndexRoute component={LoginContainer}/>
+        <Route component={MainContainer}
+            path='/main'
+        />
+      </Route>
+    </Router>
   </Provider>
 
 );

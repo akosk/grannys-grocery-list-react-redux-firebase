@@ -16,34 +16,28 @@ export default function grocery(state = initialState, action) {
     case 'EDIT_GROCERY_ITEM':
       return {
         ...state,
-        items: state.items.map((item, index) => {
-          return {
-            ...item,
-            edit: action.item.id === item.id ? true : item.edit,
-          };
-        }),
+        items: state.items.map((item, index) => ({
+          ...item,
+          edit: action.item.id === item.id ? true : item.edit,
+        })),
       };
 
     case 'CANCEL_EDIT_GROCERY_ITEM':
       return {
         ...state,
-        items: state.items.map((item, index) => {
-          return {
-            ...item,
-            edit: action.item.id === item.id ? false : item.edit,
-          };
-        }),
+        items: state.items.map((item, index) => ({
+          ...item,
+          edit: action.item.id === item.id ? false : item.edit,
+        })),
       };
 
     case 'SELECT_GROCERY_ITEMS':
       return {
         ...state,
-        items: state.items.map((item, index) => {
-          return {
-            ...item,
-            selected: action.selectedIndexes === 'all' || action.selectedIndexes.includes(index),
-          };
-        }),
+        items: state.items.map((item, index) => ({
+          ...item,
+          selected: action.selectedIndexes === 'all' || action.selectedIndexes.includes(index),
+        })),
       };
 
     case 'GROCERY_ITEM_REMOVED':
@@ -58,10 +52,10 @@ export default function grocery(state = initialState, action) {
       return {
         ...state,
         items: state.items.map((item, index) => {
-            if (item.id !== action.item.id) return item;
-            return { ...action.item };
-          }
-        ),
+          if (item.id !== action.item.id) return item;
+          return {...action.item
+          };
+        }),
       };
 
     case 'LOGOUT_SUCCEED':

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import mui, {
+import React, { PropTypes, Component } from 'react';
+import {
   Card,
   CardText,
   RaisedButton,
@@ -7,6 +7,9 @@ import mui, {
 
 class Login extends Component {
 
+  static propTypes= {
+    loginButtonClickHandler: PropTypes.func.isRequired,
+  };
 
   render() {
     const { loginButtonClickHandler } = this.props;
@@ -16,12 +19,12 @@ class Login extends Component {
         <CardText style={{ textAlign: 'center' }}>
           A program használatához tessék bejelentkezni a Facebook fiókkal.
         </CardText>
-
-        <RaisedButton style={{
-                display: 'block',
-              }}
-                      onClick={loginButtonClickHandler}
-                      label="Bejelentkezés Facebook-al" primary={true}/>
+        <RaisedButton
+            label='Bejelentkezés Facebook-al'
+            onClick={loginButtonClickHandler}
+            primary={true}
+            style={{ display: 'block' }}
+        />
       </Card>
     );
   }

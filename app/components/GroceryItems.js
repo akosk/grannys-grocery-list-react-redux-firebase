@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { FlatButton, Avatar, TextField, Table, TableBody, TableHeader,
+import { TextField, Table, TableBody, TableHeader,
   TableRowColumn, TableRow, TableHeaderColumn, IconButton } from 'material-ui';
 import EditIcon from '../../node_modules/material-ui/lib/svg-icons/editor/mode-edit';
 import ClearIcon from '../../node_modules/material-ui/lib/svg-icons/content/clear';
@@ -7,11 +7,17 @@ import DoneIcon from '../../node_modules/material-ui/lib/svg-icons/action/done';
 
 class GroceryItems extends Component {
   static propTypes = {
-    items: PropTypes.array.isRequired,
-    onItemSelectChanged: PropTypes.func.isRequired,
-    onEditItem: PropTypes.func.isRequired,
+    items: PropTypes.shape({
+      name: PropTypes.string,
+      quantity: PropTypes.string,
+      shop: PropTypes.string,
+      maxprice: PropTypes.string,
+      imageUrl: PropTypes.string,
+    }).isRequired,
     onCancelEditItem: PropTypes.func.isRequired,
     onDoneEditItem: PropTypes.func.isRequired,
+    onEditItem: PropTypes.func.isRequired,
+    onItemSelectChanged: PropTypes.func.isRequired,
   };
 
   state = {
@@ -26,10 +32,10 @@ class GroceryItems extends Component {
 
     const form = forms[item.id];
     form[event.target.name] = event.target.value;
+
     this.setState({
-        forms,
-      }
-    );
+      forms,
+    });
   }
 
   onEditItem(item, e) {
@@ -41,88 +47,105 @@ class GroceryItems extends Component {
   }
 
   render() {
-    const { items, onItemSelectChanged, onEditItem } = this.props;
+    const { items, onItemSelectChanged } = this.props;
 
     const rows = items.map((item) =>
-      <TableRow key={item.id} selected={item.selected}>
+      <TableRow key={item.id}
+          selected={item.selected}
+      >
         <TableRowColumn>
           {item.imageUrl
-            ? <img style={ { height: 70 } } src={item.imageUrl}/>
+            ? <img
+                src={item.imageUrl}
+                style={{ height: 70 }}
+              />
             : null}
         </TableRowColumn>
         <TableRowColumn
-          style={ item.selected
-          ? { textDecoration: 'line-through' }
-          : { width: 150 } }
+            style={item.selected
+              ? { textDecoration: 'line-through' }
+              : { width: 150 }}
         >
-          { item.edit !== true
+          {item.edit !== true
             ? item.name
-            : <TextField onClick={(e) => e.stopPropagation()}
-                                   name="name"
-                                   value={this.state.forms[item.id].name}
-                                   onChange={(event) => this.onChange(event, item)}
-                                   floatingLabelText="Termék neve"/>}
-
+            : <TextField
+                floatingLabelText='Termék neve'
+                name='name'
+                onChange={(event) => this.onChange(event, item)}
+                onClick={(e) => e.stopPropagation()}
+                value={this.state.forms[item.id].name}
+              />}
         </TableRowColumn>
         <TableRowColumn>{item.edit !== true ?
           item.quantity :
-          <TextField onClick={(e) => e.stopPropagation()}
-                     name="quantity"
-                     value={this.state.forms[item.id].quantity}
-                     onChange={(event) => this.onChange(event, item)}
-                     floatingLabelText="Mennyiség"/>}
+          <TextField
+              floatingLabelText='Mennyiség'
+              name='quantity'
+              onChange={(event) => this.onChange(event, item)}
+              onClick={(e) => e.stopPropagation()}
+              value={this.state.forms[item.id].quantity}
+          />}
         </TableRowColumn>
         <TableRowColumn >{item.edit !== true ?
           item.shop :
-          <TextField onClick={(e) => e.stopPropagation()}
-                     name="shop"
-                     value={this.state.forms[item.id].shop}
-                     onChange={(event) => this.onChange(event, item)}
-                     floatingLabelText="Üzlet(ek)"/>}
+          <TextField
+              floatingLabelText='Üzlet(ek)'
+              name='shop'
+              onChange={(event) => this.onChange(event, item)}
+              onClick={(e) => e.stopPropagation()}
+              value={this.state.forms[item.id].shop}
+          />}
         </TableRowColumn>
-        <TableRowColumn>{
-          item.edit !== true ?
-            item.maxprice :
-            <TextField onClick={(e) => e.stopPropagation()}
-                       name="maxprice"
-                       value={this.state.forms[item.id].maxprice}
-                       onChange={(event) => this.onChange(event, item)}
-                       floatingLabelText="Max. ár"/>}
+        <TableRowColumn>{item.edit !== true
+            ? item.maxprice
+            : <TextField
+                floatingLabelText='Max. ár'
+                name='maxprice'
+                onChange={(event) => this.onChange(event, item)}
+                onClick={(e) => e.stopPropagation()}
+                value={this.state.forms[item.id].maxprice}
+              />}
           {item.maxprice ? 'Ft' : ''}
         </TableRowColumn>
         <TableRowColumn>
-          {item.edit !== true ?
-            <IconButton onClick={(e) => this.onEditItem(item, e)}><EditIcon/></IconButton>
-            :
-            (<div>
+          {item.edit !== true
+            ? <IconButton onClick={(e) => this.onEditItem(item, e)}><EditIcon/></IconButton>
+            : <div>
                 <IconButton
-                  onClick={(e) => this.props.onDoneEditItem(this.state.forms[item.id], e)}>
+                    onClick={(e) => this.props.onDoneEditItem(this.state.forms[item.id], e)}
+                >
                   <DoneIcon />
                 </IconButton>
                 <IconButton onClick={(e) => this.props.onCancelEditItem(item, e)}>
                   <ClearIcon/>
                 </IconButton>
               </div>
-            )
           }
         </TableRowColumn>
       </TableRow>
     );
     return (
 
-      <Table multiSelectable={true} onRowSelection={onItemSelectChanged} selectable={true}>
+      <Table
+          multiSelectable={true}
+          onRowSelection={onItemSelectChanged}
+          selectable={true}
+      >
         <TableHeader enableSelectAll={true}>
           <TableRow>
-            <TableHeaderColumn tooltip="Kép a termékről">Kép</TableHeaderColumn>
-            <TableHeaderColumn style={ { width: 150 } } tooltip="A termék neve">
+            <TableHeaderColumn tooltip='Kép a termékről'>Kép</TableHeaderColumn>
+            <TableHeaderColumn
+                style={{ width: 150 }}
+                tooltip='A termék neve'
+            >
               Termék neve
             </TableHeaderColumn>
-            <TableHeaderColumn tooltip="Mennyiség és mértékegység">Mennyiség</TableHeaderColumn>
-            <TableHeaderColumn tooltip="Azok az üzletek ahonnan megvehetjük">
+            <TableHeaderColumn tooltip='Mennyiség és mértékegység'>Mennyiség</TableHeaderColumn>
+            <TableHeaderColumn tooltip='Azok az üzletek ahonnan megvehetjük'>
               Üzlet
             </TableHeaderColumn>
-            <TableHeaderColumn tooltip="Legfeljebb ennyibe kerülhet">Maximum ár</TableHeaderColumn>
-            <TableHeaderColumn></TableHeaderColumn>
+            <TableHeaderColumn tooltip='Legfeljebb ennyibe kerülhet'>Maximum ár</TableHeaderColumn>
+            <TableHeaderColumn/>
           </TableRow>
         </TableHeader>
         <TableBody deselectOnClickaway={false}>

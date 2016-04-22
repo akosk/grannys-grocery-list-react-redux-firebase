@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Badge, Avatar, FontIcon, Card, CardHeader, CardActions,
-  FlatButton, CardTitle, CardText, TextField } from 'material-ui';
+import { Card, CardActions, FlatButton, CardText, TextField } from 'material-ui';
 import AddIcon from '../../node_modules/material-ui/lib/svg-icons/content/add';
 
 const initialState = {
@@ -17,8 +16,8 @@ class GroceryItemForm extends Component {
 
   static propTypes = {
     onSubmitCallback: PropTypes.func.isRequired,
+    submitButtonIcon: PropTypes.element,
     submitButtonText: PropTypes.string,
-    submitButtonIcon: PropTypes.object,
   };
 
   static defaultProps = {
@@ -48,47 +47,47 @@ class GroceryItemForm extends Component {
     return (
       <form onSubmit={(e) => this.onSubmit(e)}>
         <Card>
-          <CardText style={
-            {
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }
-          }>
+          <CardText
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+          >
 
             <TextField
-              name="name"
-              floatingLabelText="Termék neve"
-              autoFocus="true"
-              value={this.state.form.name}
-              onChange={(e) => this.onChange(e)}
+                autoFocus='true'
+                floatingLabelText='Termék neve'
+                name='name'
+                onChange={(e) => this.onChange(e)}
+                value={this.state.form.name}
             />
             <TextField
-              name="quantity"
-              floatingLabelText="Mennyiség"
-              value={this.state.form.quantity}
-              onChange={(e) => this.onChange(e)}
+                floatingLabelText='Mennyiség'
+                name='quantity'
+                onChange={(e) => this.onChange(e)}
+                value={this.state.form.quantity}
             />
             <TextField
-              name="shop"
-              floatingLabelText="Üzlet(ek)"
-              value={this.state.form.shop}
-              onChange={(e) => this.onChange(e)}
+                floatingLabelText='Üzlet(ek)'
+                name='shop'
+                onChange={(e) => this.onChange(e)}
+                value={this.state.form.shop}
             />
             <TextField
-              name="maxprice"
-              floatingLabelText="Max. ár"
-              value={this.state.form.maxprice}
-              onChange={(e) => this.onChange(e)}
+                floatingLabelText='Max. ár'
+                name='maxprice'
+                onChange={(e) => this.onChange(e)}
+                value={this.state.form.maxprice}
             />
 
           </CardText>
           <CardActions >
             <FlatButton
-              disabled={this.state.submitButtonDisabled}
-              label={this.props.submitButtonText}
-              type="submit"
-              icon={this.props.submitButtonIcon}
+                disabled={this.state.submitButtonDisabled}
+                icon={this.props.submitButtonIcon}
+                label={this.props.submitButtonText}
+                type='submit'
             />
           </CardActions>
         </Card>

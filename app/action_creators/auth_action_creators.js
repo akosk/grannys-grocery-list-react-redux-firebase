@@ -1,5 +1,3 @@
-import { routerMiddleware, push } from 'react-router-redux';
-
 export function openLoginPopup() {
   return {
     type: 'OPEN_LOGIN_POPUP',

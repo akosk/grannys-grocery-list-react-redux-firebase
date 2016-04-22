@@ -4,7 +4,6 @@ export const initialState = {
 
 export default function auth(state = initialState, action) {
   switch (action.type) {
-
     case 'OPEN_LOGIN_POPUP':
       return {
         ...state,
