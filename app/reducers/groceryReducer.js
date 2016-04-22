@@ -43,19 +43,22 @@ export default function grocery(state = initialState, action) {
     case 'GROCERY_ITEM_REMOVED':
       return {
         ...state,
-        items: state.items.filter((item) => {
-          return item.id !== action.item.key;
-        }),
+        items: state.items.filter((item) => item.id !== action.item.key),
       };
 
     case 'GROCERY_ITEM_CHANGED':
       return {
         ...state,
-        items: state.items.map((item, index) => {
-          if (item.id !== action.item.id) return item;
-          return {...action.item
-          };
-        }),
+        items: state.items.map(
+          (item, index) => {
+            if (item.id !== action.item.id) {
+              return item;
+            }
+            return {
+              ...action.item,
+            };
+          }
+        ),
       };
 
     case 'LOGOUT_SUCCEED':
