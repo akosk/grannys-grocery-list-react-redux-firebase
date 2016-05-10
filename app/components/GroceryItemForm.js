@@ -39,7 +39,8 @@ class GroceryItemForm extends Component {
   }
 
   onSubmit(event) {
-    this.props.onSubmitCallback(event);
+    e.preventDefault();
+    this.props.onSubmitCallback(event, this.state.form);
     this.setState(initialState);
   }
 
@@ -80,7 +81,6 @@ class GroceryItemForm extends Component {
                 onChange={(e) => this.onChange(e)}
                 value={this.state.form.maxprice}
             />
-
           </CardText>
           <CardActions >
             <FlatButton

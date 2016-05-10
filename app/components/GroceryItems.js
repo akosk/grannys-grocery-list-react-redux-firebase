@@ -7,13 +7,13 @@ import DoneIcon from '../../node_modules/material-ui/lib/svg-icons/action/done';
 
 class GroceryItems extends Component {
   static propTypes = {
-    items: PropTypes.shape({
+    items: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
       quantity: PropTypes.string,
       shop: PropTypes.string,
       maxprice: PropTypes.string,
       imageUrl: PropTypes.string,
-    }).isRequired,
+    })).isRequired,
     onCancelEditItem: PropTypes.func.isRequired,
     onDoneEditItem: PropTypes.func.isRequired,
     onEditItem: PropTypes.func.isRequired,
@@ -52,6 +52,7 @@ class GroceryItems extends Component {
     const rows = items.map((item) =>
       <TableRow key={item.id}
           selected={item.selected}
+
       >
         <TableRowColumn>
           {item.imageUrl
@@ -63,8 +64,8 @@ class GroceryItems extends Component {
         </TableRowColumn>
         <TableRowColumn
             style={item.selected
-              ? { textDecoration: 'line-through' }
-              : { width: 150 }}
+              ? { textDecoration: 'line-through', whiteSpace:'normal' }
+              : { minWidth: 150, whiteSpace:'normal' }}
         >
           {item.edit !== true
             ? item.name
@@ -76,7 +77,7 @@ class GroceryItems extends Component {
                 value={this.state.forms[item.id].name}
               />}
         </TableRowColumn>
-        <TableRowColumn>{item.edit !== true ?
+        <TableRowColumn style={{ whiteSpace:'normal' }}>{item.edit !== true ?
           item.quantity :
           <TextField
               floatingLabelText='Mennyiség'
@@ -86,7 +87,7 @@ class GroceryItems extends Component {
               value={this.state.forms[item.id].quantity}
           />}
         </TableRowColumn>
-        <TableRowColumn >{item.edit !== true ?
+        <TableRowColumn style={{ whiteSpace:'normal' }}>{item.edit !== true ?
           item.shop :
           <TextField
               floatingLabelText='Üzlet(ek)'
@@ -96,7 +97,7 @@ class GroceryItems extends Component {
               value={this.state.forms[item.id].shop}
           />}
         </TableRowColumn>
-        <TableRowColumn>{item.edit !== true
+        <TableRowColumn style={{ whiteSpace:'normal' }}>{item.edit !== true
             ? item.maxprice
             : <TextField
                 floatingLabelText='Max. ár'

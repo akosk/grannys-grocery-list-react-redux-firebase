@@ -14,7 +14,7 @@ class LayoutContainer extends Component {
     isLoggedIn: React.PropTypes.bool.isRequired,
     logout: React.PropTypes.func.isRequired,
     redirectToLogin: React.PropTypes.func.isRequired,
-  }
+  };
 
   static contextTypes = {
     router: React.PropTypes.object,
@@ -35,12 +35,12 @@ class LayoutContainer extends Component {
     return (
       <div style={{ maxWidth: 900, minHeight: 600, margin: '0 auto' }}>
         <Card style={{ minHeight: 600 }}>
-        <AppBar
-            iconElementLeft={<IconButton><ShoppingBasketIcon/></IconButton>}
-            iconElementRight={isLoggedIn ? logoutButton : null}
-            title='Nagyi bevásárló listája'
-        />
-        {this.props.children}
+          <AppBar
+              iconElementLeft={<IconButton><ShoppingBasketIcon/></IconButton>}
+              iconElementRight={isLoggedIn ? logoutButton : null}
+              title='Nagyi bevásárló listája'
+          />
+          {this.props.children}
         </Card>
       </div>
     );

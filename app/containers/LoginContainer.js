@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Firebase from 'firebase';
 import Login from '../components/Login';
 import * as actionCreators from '../action_creators';
 
@@ -10,7 +11,7 @@ class LoginContainer extends Component {
   };
 
   static propTypes = {
-    firebase: PropTypes.func.isRequired,
+    firebase: PropTypes.instanceOf(Firebase).isRequired,
     loginError: PropTypes.func.isRequired,
     loginSucceed: PropTypes.func.isRequired,
     openLoginPopup: PropTypes.func.isRequired,

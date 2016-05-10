@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.9.1",
     "classnames": "^2.2.3",
+    "emailjs": "^1.0.4",
     "firebase": "^2.4.2",
     "immutable": "^3.7.6",
     "lodash": "^4.9.0",
