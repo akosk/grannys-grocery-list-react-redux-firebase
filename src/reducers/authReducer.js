@@ -1,8 +1,6 @@
-export const initialState = {
-  popupOpened: false,
-};
+import initialState from '../initialState';
 
-export default function auth(state = initialState, action) {
+export default function auth(state = initialState.auth, action) {
   switch (action.type) {
     case 'OPEN_LOGIN_POPUP':
       return {
@@ -21,6 +19,7 @@ export default function auth(state = initialState, action) {
       return {
         ...state,
         user: action.user,
+        token: action.token,
         popupOpened: false,
       };
 

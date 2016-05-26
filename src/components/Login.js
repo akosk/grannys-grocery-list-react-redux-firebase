@@ -20,9 +20,9 @@ class Login extends Component {
           A program használatához tessék bejelentkezni a Facebook fiókkal.
         </CardText>
         <RaisedButton
-            label='Bejelentkezés Facebook-al'
+            label="Bejelentkezés Facebook-al"
             onClick={loginButtonClickHandler}
-            primary={true}
+            primary
             style={{ display: 'block' }}
         />
       </Card>

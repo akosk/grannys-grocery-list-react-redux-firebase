@@ -14,6 +14,7 @@ const initialState = {
 
 class GroceryItemForm extends Component {
 
+
   static propTypes = {
     onSubmitCallback: PropTypes.func.isRequired,
     submitButtonIcon: PropTypes.element,
@@ -25,7 +26,12 @@ class GroceryItemForm extends Component {
     submitButtonIcon: <AddIcon/>,
   };
 
-  state = initialState;
+  constructor(props, context) {
+    super(props, context);
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.state = {...initialState};
+  }
 
   onChange(event) {
     const form = this.state.form;
@@ -39,14 +45,16 @@ class GroceryItemForm extends Component {
   }
 
   onSubmit(event) {
-    e.preventDefault();
-    this.props.onSubmitCallback(event, this.state.form);
+    event.preventDefault();
+    event.stopPropagation();
+    this.props.onSubmitCallback(this.state.form);
     this.setState(initialState);
   }
 
   render() {
     return (
-      <form onSubmit={(e) => this.onSubmit(e)}>
+      <form onSubmit={this.onSubmit}>
+
         <Card>
           <CardText
               style={{
@@ -55,30 +63,30 @@ class GroceryItemForm extends Component {
                 justifyContent: 'space-between',
               }}
           >
+            <TextField
+              autoFocus="true"
+              floatingLabelText="Termék neve"
+              name="name"
+              onChange={this.onChange}
+              value={this.state.form.name}
+            />
 
             <TextField
-                autoFocus='true'
-                floatingLabelText='Termék neve'
-                name='name'
-                onChange={(e) => this.onChange(e)}
-                value={this.state.form.name}
-            />
-            <TextField
-                floatingLabelText='Mennyiség'
-                name='quantity'
-                onChange={(e) => this.onChange(e)}
+                floatingLabelText="Mennyiség"
+                name="quantity"
+                onChange={this.onChange}
                 value={this.state.form.quantity}
             />
             <TextField
-                floatingLabelText='Üzlet(ek)'
-                name='shop'
-                onChange={(e) => this.onChange(e)}
+                floatingLabelText="Üzlet(ek)"
+                name="shop"
+                onChange={this.onChange}
                 value={this.state.form.shop}
             />
             <TextField
-                floatingLabelText='Max. ár'
-                name='maxprice'
-                onChange={(e) => this.onChange(e)}
+                floatingLabelText="Max. ár"
+                name="maxprice"
+                onChange={this.onChange}
                 value={this.state.form.maxprice}
             />
           </CardText>
@@ -87,7 +95,7 @@ class GroceryItemForm extends Component {
                 disabled={this.state.submitButtonDisabled}
                 icon={this.props.submitButtonIcon}
                 label={this.props.submitButtonText}
-                type='submit'
+                type="submit"
             />
           </CardActions>
         </Card>

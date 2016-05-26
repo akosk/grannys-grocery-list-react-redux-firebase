@@ -70,8 +70,8 @@ class GroceryItems extends Component {
           {item.edit !== true
             ? item.name
             : <TextField
-                floatingLabelText='Termék neve'
-                name='name'
+                floatingLabelText="Termék neve"
+                name="name"
                 onChange={(event) => this.onChange(event, item)}
                 onClick={(e) => e.stopPropagation()}
                 value={this.state.forms[item.id].name}
@@ -80,8 +80,8 @@ class GroceryItems extends Component {
         <TableRowColumn style={{ whiteSpace:'normal' }}>{item.edit !== true ?
           item.quantity :
           <TextField
-              floatingLabelText='Mennyiség'
-              name='quantity'
+              floatingLabelText="Mennyiség"
+              name="quantity"
               onChange={(event) => this.onChange(event, item)}
               onClick={(e) => e.stopPropagation()}
               value={this.state.forms[item.id].quantity}
@@ -90,8 +90,8 @@ class GroceryItems extends Component {
         <TableRowColumn style={{ whiteSpace:'normal' }}>{item.edit !== true ?
           item.shop :
           <TextField
-              floatingLabelText='Üzlet(ek)'
-              name='shop'
+              floatingLabelText="Üzlet(ek)"
+              name="shop"
               onChange={(event) => this.onChange(event, item)}
               onClick={(e) => e.stopPropagation()}
               value={this.state.forms[item.id].shop}
@@ -100,8 +100,8 @@ class GroceryItems extends Component {
         <TableRowColumn style={{ whiteSpace:'normal' }}>{item.edit !== true
             ? item.maxprice
             : <TextField
-                floatingLabelText='Max. ár'
-                name='maxprice'
+                floatingLabelText="Max. ár"
+                name="maxprice"
                 onChange={(event) => this.onChange(event, item)}
                 onClick={(e) => e.stopPropagation()}
                 value={this.state.forms[item.id].maxprice}
@@ -128,24 +128,24 @@ class GroceryItems extends Component {
     return (
 
       <Table
-          multiSelectable={true}
+          multiSelectable
           onRowSelection={onItemSelectChanged}
-          selectable={true}
+          selectable
       >
-        <TableHeader enableSelectAll={true}>
+        <TableHeader enableSelectAll>
           <TableRow>
-            <TableHeaderColumn tooltip='Kép a termékről'>Kép</TableHeaderColumn>
+            <TableHeaderColumn tooltip="Kép a termékről">Kép</TableHeaderColumn>
             <TableHeaderColumn
                 style={{ width: 150 }}
-                tooltip='A termék neve'
+                tooltip="A termék neve"
             >
               Termék neve
             </TableHeaderColumn>
-            <TableHeaderColumn tooltip='Mennyiség és mértékegység'>Mennyiség</TableHeaderColumn>
-            <TableHeaderColumn tooltip='Azok az üzletek ahonnan megvehetjük'>
+            <TableHeaderColumn tooltip="Mennyiség és mértékegység">Mennyiség</TableHeaderColumn>
+            <TableHeaderColumn tooltip="Azok az üzletek ahonnan megvehetjük">
               Üzlet
             </TableHeaderColumn>
-            <TableHeaderColumn tooltip='Legfeljebb ennyibe kerülhet'>Maximum ár</TableHeaderColumn>
+            <TableHeaderColumn tooltip="Legfeljebb ennyibe kerülhet">Maximum ár</TableHeaderColumn>
             <TableHeaderColumn/>
           </TableRow>
         </TableHeader>
