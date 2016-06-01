@@ -2,12 +2,9 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import _ from 'lodash';
 
-
-// Components
-import LayoutContainer from './containers/LayoutContainer';
-import LoginContainer from './containers/LoginContainer';
-import MainContainer from './containers/MainContainer';
-
+import LayoutContainer from './components/LayoutContainer';
+import LoginPage from './components/auth/LoginPage';
+import GroceryPage from './components/grocery/GroceryPage';
 
 const createRoutes = (store)=> {
 
@@ -21,12 +18,11 @@ const createRoutes = (store)=> {
 
   return (
     <Route path="/" component={LayoutContainer}>
-      <IndexRoute component={LoginContainer}/>
-      <Route path="main" component={MainContainer} onEnter={requireAuthentication}/>
+      <IndexRoute component={LoginPage}/>
+      <Route path="main" component={GroceryPage} onEnter={requireAuthentication}/>
     </Route>
   );
 };
 
 export default createRoutes;
-
 

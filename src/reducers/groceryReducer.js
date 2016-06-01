@@ -31,12 +31,21 @@ export default function grocery(state = initialState, action) {
         })),
       };
 
-    case 'SELECT_GROCERY_ITEMS':
+    case 'SELECT_GROCERY_ITEM':
       return {
         ...state,
         items: state.items.map((item, index) => ({
           ...item,
-          selected: action.selectedIndexes === 'all' || action.selectedIndexes.includes(index),
+          selected: action.item.id === item.id ? action.isSelected : item.selected,
+        })),
+      };
+
+    case 'SELECT_ALL_GROCERY_ITEM':
+      return {
+        ...state,
+        items: state.items.map((item, index) => ({
+          ...item,
+          selected: action.isSelected,
         })),
       };
 

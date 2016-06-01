@@ -126,14 +126,24 @@ export function doneEditGroceryItem(item) {
   };
 }
 
-export function selectGroceryItems(selectedIndexes) {
+export function selectGroceryItem(item, isSelected) {
   return {
-    type: 'SELECT_GROCERY_ITEMS',
-    selectedIndexes,
+    type: 'SELECT_GROCERY_ITEM',
+    item,
+    isSelected
   };
 }
 
-export function deleteSelectedGroceryItems() {
+export function selectAllGroceryItem(isSelected) {
+  return {
+    type: 'SELECT_ALL_GROCERY_ITEM',
+    isSelected
+  };
+}
+
+
+
+export function deleteSelectedGroceryItems(rowKeys) {
   return (dispatch, getState) => {
     const { grocery } = getState();
     grocery.items.forEach((item) => {

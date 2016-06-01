@@ -11,6 +11,9 @@ import config from './config';
 import initialState from './initialState';
 import configureStore from './store';
 
+import '../node_modules/toastr/build/toastr.min.css';
+import './style/site.css';
+
 Firebase.initializeApp(config.firebase);
 const store = configureStore(initialState);
 const routes=createRoutes(store);

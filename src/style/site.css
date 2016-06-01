@@ -1,0 +1,30 @@
+#userinfo {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.react-bs-table-container {
+  margin-top:16px;
+}
+
+.navbar {
+  height:60px;
+}
+.navbar-brand {
+  line-height: 30px;
+}
+.navbar-nav > li > a {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  line-height: 60px;
+}
+
+.react-bs-table-tool-bar button {
+  padding: 8px 12px !important;
+  font-size: 14px !important;
+  line-height: 1.42857143 !important;
+  border-radius: 4px !important;
+}

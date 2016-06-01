@@ -17,9 +17,14 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
+app.use('/images',express.static(path.join( __dirname, '../src/images')));
+
 app.get('*', function(req, res) {
+  console.log("*",req.protocol + '://' + req.get('host') + req.originalUrl);
   res.sendFile(path.join( __dirname, '../src/index.html'));
 });
+
+
 
 app.listen(port, function(err) {
   if (err) {

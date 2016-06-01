@@ -1,9 +1,29 @@
 import Firebase from 'firebase';
 import {browserHistory} from 'react-router';
 
+
 export function openLoginPopup() {
   return {
     type: 'OPEN_LOGIN_POPUP'
+  };
+}
+
+export function authWithPopup() {
+  return (dispatch, getState)=> {
+    dispatch(openLoginPopup());
+
+    const provider = new Firebase.auth.FacebookAuthProvider();
+    provider.addScope('user_birthday');
+    Firebase.auth().signInWithPopup(provider)
+            .then((result) => {
+              dispatch(loginSucceed(result.user.providerData[0], result.credential.accessToken));
+            }).then(()=> {
+              browserHistory.push('/main');
+            })
+            .catch((error)=> {
+              throw error;
+              //dispatch(loginError(error));
+            });
   };
 }
 
@@ -25,6 +45,8 @@ export function loginSucceed(user, token) {
 export function logout() {
   return (dispatch, getState) => {
     Firebase.auth().signOut().then(()=> {
+      dispatch(redirectToLogin());
+
       dispatch({
         type: 'LOGOUT_SUCCEED'
       });
