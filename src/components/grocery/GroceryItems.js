@@ -80,7 +80,7 @@ class GroceryItems extends Component {
                           selectRow={this.selectRowProp()}
                           cellEdit={this.cellEditProp()}
                           deleteRow
-                          bordered={false}
+                          bordered
                           options={this.options()}>
             <TableHeaderColumn isKey hidden dataField="id">#</TableHeaderColumn>
             <TableHeaderColumn dataField="imageUrl" editable={false} dataFormat={this.imageFormatter}

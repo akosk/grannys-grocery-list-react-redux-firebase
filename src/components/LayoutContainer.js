@@ -13,14 +13,13 @@ class LayoutContainer extends Component {
     logout: React.PropTypes.func.isRequired,
     avatarUrl: React.PropTypes.string.isRequired,
     displayName: React.PropTypes.string.isRequired,
-    itemsCount: React.PropTypes.number.isRequired,
   };
 
   render() {
     const { isLoggedIn, logout, displayName, avatarUrl,  } = this.props;
 
     return (
-      <div>
+      <div  >
         <Navbar>
           <Navbar.Header>
             <Navbar.Brand>
@@ -28,7 +27,7 @@ class LayoutContainer extends Component {
             </Navbar.Brand>
           </Navbar.Header>
           {isLoggedIn &&
-          <Nav pullRight>
+          <Nav pullRight style={{marginRight:30}}>
             <NavItem>&nbsp;<strong>{displayName}</strong> &nbsp;<img src={avatarUrl} style={{height:'45px'}} className="img-circle"/></NavItem>
           </Nav>
           }
@@ -37,7 +36,7 @@ class LayoutContainer extends Component {
           </Nav>
 
         </Navbar>
-        <div className="container">
+        <div style={{backgroundColor:'white',paddingTop:28}} className="container">
           {this.props.children}
         </div>
       </div>
